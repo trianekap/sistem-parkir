@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.codean.remidiujian2.mappers.CatatanParkirMapper">
+    <resultMap id="CatatanParkirResultMap" type="com.codean.remidiujian2.models.entity.CatatanParkir">
+        <id property="id" column="id" typeHandler="com.codean.remidiujian2.Handler.UUIDTypeHandler"/>
+        <result property="idKendaraan" column="id_kendaraan" typeHandler="com.codean.remidiujian2.Handler.UUIDTypeHandler" />
+        <result property="idSlotParkir" column="id_slot_parkir" typeHandler="com.codean.remidiujian2.Handler.UUIDTypeHandler" />
+        <result property="waktuMasuk" column="waktu_masuk" typeHandler="com.codean.remidiujian2.Handler.ZonedDateTimeTypeHandler"/>
+        <result property="waktuKeluar" column="waktu_keluar" typeHandler="com.codean.remidiujian2.Handler.ZonedDateTimeTypeHandler"/>
+        <result property="biayaParkir" column="biaya_parkir" />
+    </resultMap>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO catatan_parkir ( id_kendaraan, id_slot_parkir, waktu_masuk, waktu_keluar, biaya_parkir)
+        VALUES (
+        #{idKendaraan},
+        #{idSlotParkir},
+        #{waktuMasuk, typeHandler=com.codean.remidiujian2.Handler.ZonedDateTimeTypeHandler},
+        #{waktuKeluar, typeHandler=com.codean.remidiujian2.Handler.ZonedDateTimeTypeHandler},
+        #{biayaParkir});
+    </insert>
+
+    <select id="findAll" resultMap="CatatanParkirResultMap">
+        SELECT * FROM catatan_parkir;
+    </select>
+
+    <select id="findById" resultMap="CatatanParkirResultMap">
+        SELECT * FROM catatan_parkir WHERE id = #{id}
+    </select>
+
+    <update id="update">
+        UPDATE catatan_parkir
+        SET
+        waktu_masuk = #{waktuMasuk, typeHandler=com.codean.remidiujian2.Handler.ZonedDateTimeTypeHandler},
+        waktu_keluar = #{waktuKeluar, typeHandler=com.codean.remidiujian2.Handler.ZonedDateTimeTypeHandler},
+        biaya_parkir = #{biayaParkir}
+        WHERE id = #{id};
+    </update>
+
+    <delete id="delete">
+        DELETE FROM catatan_parkir WHERE id = #{id};
+    </delete>
+</mapper>

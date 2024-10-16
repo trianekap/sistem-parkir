@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.codean.remidiujian2.mappers.KendaraanMapper">
+
+    <resultMap id="KendaraanResultMap" type="com.codean.remidiujian2.models.entity.Kendaraan">
+        <id property="id" column="id" typeHandler="com.codean.remidiujian2.Handler.UUIDTypeHandler"/>
+        <result property="platNomor" column="plat_nomor"/>
+        <result property="jenisKendaraan" column="jenis_kendaraan"/>
+    </resultMap>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO kendaraan ( plat_nomor, jenis_kendaraan)
+        VALUES (#{platNomor}, #{jenisKendaraan})
+    </insert>
+
+    <select id="findAll" resultMap="KendaraanResultMap">
+        SELECT id, plat_nomor, jenis_kendaraan FROM kendaraan
+    </select>
+
+    <select id="findById" resultMap="KendaraanResultMap">
+        SELECT * FROM kendaraan WHERE id = #{id}
+    </select>
+
+    <select id="findByPlatNomor" resultMap="KendaraanResultMap">
+        SELECT id, plat_nomor, jenis_kendaraan FROM kendaraan
+        WHERE plat_nomor = #{platNomor}
+    </select>
+
+    <update id="update">
+        UPDATE kendaraan
+        SET plat_nomor = #{platNomor}, jenis_kendaraan = #{jenisKendaraan}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" >
+        DELETE FROM kendaraan WHERE id = #{id}
+    </delete>
+</mapper>
+

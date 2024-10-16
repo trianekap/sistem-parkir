@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- Other configuration settings -->
+
+    <typeHandlers>
+
+        <typeHandler handler="com.codean.remidiujian2.Handler.ZonedDateTimeTypeHandler" javaType="java.time.ZonedDateTime"/>
+
+        <typeHandler handler="com.codean.remidiujian2.Handler.UUIDTypeHandler" javaType="java.util.UUID"/>
+    </typeHandlers>
+
+</configuration>

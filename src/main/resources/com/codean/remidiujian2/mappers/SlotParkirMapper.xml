@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.codean.remidiujian2.mappers.SlotParkirMapper">
+
+    <resultMap id="SlotParkirResultMap" type="com.codean.remidiujian2.models.entity.SlotParkir">
+        <id property="id" column="id" typeHandler="com.codean.remidiujian2.Handler.UUIDTypeHandler"/>
+        <result property="nomorSlot" column="nomor_slot"/>
+        <result property="terisi" column="terisi"/>
+    </resultMap>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO slot_parkir (nomor_slot, terisi)
+        VALUES (#{nomorSlot}, #{terisi});
+    </insert>
+
+    <select id="countItems" resultType="int">
+        SELECT COUNT(id) FROM slot_parkir
+    </select>
+    
+ <select id="getLimitedItem" resultMap="SlotParkirResultMap">
+		SELECT id, nomor_slot, terisi FROM slot_parkir ORDER BY
+		${order} LIMIT #{pageSize} OFFSET #{offset}
+	</select>
+
+    <select id="findAll" resultMap="SlotParkirResultMap">
+        SELECT id, nomor_slot, terisi FROM slot_parkir;
+    </select>
+
+    <select id="findById" resultMap="SlotParkirResultMap">
+        SELECT id, nomor_slot, terisi FROM slot_parkir WHERE id = #{id};
+    </select>
+
+    <update id="update">
+        UPDATE slot_parkir
+        SET nomor_slot = #{nomorSlot}, terisi = #{terisi}
+        WHERE id = #{id};
+    </update>
+
+    <delete id="delete">
+        DELETE FROM slot_parkir WHERE id = #{id};
+    </delete>
+</mapper>
